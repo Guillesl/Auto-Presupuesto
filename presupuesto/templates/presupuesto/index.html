@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto y coeficientes</title>
+</head>
+<body>
+    <header>
+        <h1>Presupuestos y coeficientesp</h1>
+    </header>
+    <main>
+        {% if scale_factor %}
+        {% print scale_factor %}
+
+        {% else %}
+            <p>Aún no hay info disponible.</p>
+        {% endif %}
+    
+</body>
+</html>
