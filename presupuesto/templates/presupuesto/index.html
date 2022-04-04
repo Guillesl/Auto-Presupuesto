@@ -13,8 +13,9 @@
         <h1>Presupuestos y coeficientes</h1>
     </header>
     <main>
-        {% if scale_factor %}
-        <li>{{ scale_factor }}</li>
+        {% if b %}
+            <li>{{ b }}</li>
+            <li>{{ a }}</li>
 
         {% else %}
             <p>Aún no hay info disponible.</p>
