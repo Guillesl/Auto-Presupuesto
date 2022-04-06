@@ -1,9 +1,7 @@
 import datetime
-import numpy as np
 
 from django.db import models
 from django.utils import timezone
-from scipy.optimize import curve_fit
 
 integration_choices = (
     ('SL_S_FW','SL_S_FW'),
@@ -61,48 +59,42 @@ class bop(models.Model):
     # presupuesto = 
     
 
-class Solar_field(models.Model):
-    def __init__(self):
-        self.projects = Project.objects.all()
-        return self.projects
+class Solar_field(Project):
+    def __init__(self, name, num_colect, cost, real_offer, pub_date):
+        super.__init__(name, num_colect, cost, real_offer, pub_date )
 
-    def calcula_factor():
-        num_colect_list = [i.num_colect for i in Project.objects.all()]
-        cost_colect_list = [i.cost for i in Project.objects.all()]
-       
-        '''Cálculo de la referencia'''
-        if Project.objects.filter(real_offer = True):
-            num_colect_user = 60 #FALTA QUE SE ENLACE CON LA VIEW PARA QUE EL USUARIO INTRODUZCA EL VALOR
-            num_colect_ref = min(num_colect_list, key=lambda j:abs(j-num_colect_user))
+    def filtro():
+        projects = Project.objects.all()
+        return projects
 
-        else:
-            num_colect_user = 60
-            num_colect_ref = min(num_colect_list, key=lambda j:abs(j-num_colect_user))
-        
-        project_ref = Project.objects.get(num_colect=num_colect_ref)
-        x = [i/num_colect_ref for i in num_colect_list]
-        cost_f = [i/project_ref.cost for i in cost_colect_list]
-        y = [i/j for i, j in zip(cost_f, x)]
-        coefs = np.polyfit(np.log(x),np.log(y),1)
-        #scipy.optimize.curve_fit(lambda t,b: np.exp(b*t),  x,  y)
+class Balance_Of_Plant(Project):
+    def __init__(self, name, num_colect, integration, fluid, dist_supply, cost, real_offer, pub_date):
+        super.__init__(name, num_colect, integration, fluid, dist_supply, cost, real_offer, pub_date )
 
-        '''y=a*x**b'''
-        a = np.exp(coefs[1])                      
-        b = coefs[0]
+    def filtro():
+        projects = Project.objects.filter()
+        return projects
 
-        return a, b
+class Construction(Project):
+    def __init__(self, name, num_colect, surface, cost, real_offer, pub_date):
+        super.__init__(name, num_colect, surface, cost, real_offer, pub_date )
 
+    def filtro():
+        projects = Project.objects.filter(surface = surface_choices[1])
+        return projects   
 
-# class Balance_Of_Plant(Project):
-        # def scale_factor_calculation(self):
-        # scale_factor = self.objects.filter()
-#     pass
+class mobility(Project):
+    def __init__(self, name, num_colect, transport, distance, cost, real_offer, pub_date):
+        super.__init__(name, num_colect, transport, distance, cost, real_offer, pub_date)
 
-# class Construction(Project):
-#     pass
+    def filtro():
+        projects = Project.objects.filter(transport = transport_choices[2], distance = 200)
+        return projects   
 
-# class Transport(Project):
-#     pass
+class Storage(Project):
+    def __init__(self, name, vol_storage, integration, pressure, cost, real_offer, pub_date):
+        super.__init__(name, vol_storage, integration, pressure,cost, real_offer, pub_date )
 
-# class Storage(Project):
-#     pass
+    def filtro():
+        projects = Project.objects.filter(integration = integration_choices[6], pressure = 6)
+        return projects

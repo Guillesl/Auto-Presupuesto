@@ -1,13 +1,11 @@
 from django.contrib import admin
-from .models import Project, Solar_field
-
-# class Solar_fieldInLine(admin.StackedInline):
-#     model = Solar_field
-#     extra = 3
+from presupuesto.models import Project
 
 # class ProjectAdmin(admin.ModelAdmin):
-#     fields = ["num_colect", "cost", "real_offer", "pub_date"]
-#     inlines = [Solar_fieldInLine]
-#     list_display = ("num_colect", "cost", "real_offer", "pub_date")
+#     fields = ["pub_date", "question_text"]
+#     inlines = [ChoiceInLine]
+#     list_display = ("question_text", "pub_date", "was_published_recently")
+#     list_filter = ["pub_date"]
+#     search_fields = ["question_text"]
 
 admin.site.register(Project)
