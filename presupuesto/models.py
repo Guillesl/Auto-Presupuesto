@@ -46,6 +46,11 @@ class Project(models.Model):
     distance = models.BigIntegerField()
     pressure = models.IntegerField()
     cost = models.BigIntegerField()
+    solar_field_cost = models.BigIntegerField()
+    bop_cost = models.BigIntegerField()
+    construction_cost = models.BigIntegerField()
+    mobility_cost = models.BigIntegerField()
+    storage_cost = models.BigIntegerField()
     real_offer = models.BooleanField()
     pub_date = models.DateField("date published")
     
@@ -61,40 +66,40 @@ class bop(models.Model):
     
 
 class Solar_field(Project):
-    def __init__(self, name, num_colect, cost, real_offer, pub_date):
-        super.__init__(name, num_colect, cost, real_offer, pub_date )
+    def __init__(self, name, num_colect, solar_field_cost, real_offer, pub_date):
+        super.__init__(name, num_colect, solar_field_cost, real_offer, pub_date )
 
     def filtro():
         projects = Project.objects.all()
         return projects
 
 class Balance_Of_Plant(Project):
-    def __init__(self, name, num_colect, integration, fluid, dist_supply, cost, real_offer, pub_date):
-        super.__init__(name, num_colect, integration, fluid, dist_supply, cost, real_offer, pub_date )
+    def __init__(self, name, num_colect, integration, fluid, dist_supply, bop_cost, real_offer, pub_date):
+        super.__init__(name, num_colect, integration, fluid, dist_supply, bop_cost, real_offer, pub_date )
 
     def filtro():
         projects = Project.objects.filter()
         return projects
 
 class Construction(Project):
-    def __init__(self, name, num_colect, surface, cost, real_offer, pub_date):
-        super.__init__(name, num_colect, surface, cost, real_offer, pub_date )
+    def __init__(self, name, num_colect, surface, construction_cost, real_offer, pub_date):
+        super.__init__(name, num_colect, surface, construction_cost, real_offer, pub_date )
 
-    def filtro():
-        projects = Project.objects.filter(surface = surface_choices[1])
+    def filtro(surface_choice):
+        projects = Project.objects.filter(surface = surface_choice)
         return projects   
 
-class mobility(Project):
-    def __init__(self, name, num_colect, transport, distance, cost, real_offer, pub_date):
-        super.__init__(name, num_colect, transport, distance, cost, real_offer, pub_date)
+class Mobility(Project):
+    def __init__(self, name, num_colect, transport, distance, mobility_cost, real_offer, pub_date):
+        super.__init__(name, num_colect, transport, distance, mobility_cost, real_offer, pub_date)
 
     def filtro():
         projects = Project.objects.filter(transport = transport_choices[2], distance = 200)
         return projects   
 
 class Storage(Project):
-    def __init__(self, name, vol_storage, integration, pressure, cost, real_offer, pub_date):
-        super.__init__(name, vol_storage, integration, pressure,cost, real_offer, pub_date )
+    def __init__(self, name, vol_storage, integration, pressure, storage_cost, real_offer, pub_date):
+        super.__init__(name, vol_storage, integration, pressure, storage_cost, real_offer, pub_date )
 
     def filtro():
         projects = Project.objects.filter(integration = integration_choices[6], pressure = 6)
