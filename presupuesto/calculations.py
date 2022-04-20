@@ -5,7 +5,7 @@ def calcula_factor(objetos, info):
     num_colect_list = [i.num_colect for i in objetos]
     cost_colect_list = [i.cost for i in objetos]
     
-    '''Cálculo de la referencia'''
+    '''Cálculo de la referencia, dando prioridad a los proyectos reales'''
     num_colect_user = info.num_colect
     #vol_storage_user = form.vol_storage
 
@@ -14,7 +14,7 @@ def calcula_factor(objetos, info):
     else:
         num_colect_ref = min(num_colect_list, key=lambda j:abs(j-num_colect_user))
     
-    project_ref = objetos.filter(num_colect=num_colect_ref)[0]
+    project_ref = objetos.filter(num_colect=num_colect_ref)[0] #se podría añadir la condición de que sea el proyecto verdadero más reciente
     x = [i/num_colect_ref for i in num_colect_list]
     cost_f = [i/project_ref.cost for i in cost_colect_list]
     y = [i/j for i, j in zip(cost_f, x)]

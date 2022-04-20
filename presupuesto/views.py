@@ -8,24 +8,21 @@ from .models import Project, Solar_field
 from .forms import ProjectForm
 
 def index(request):
+    return render(request, 'presupuesto/index.html', {"form": ProjectForm})
+
+def results(request):
     a_solar = ''
     b_solar = ''
-
+    # if(request.method == 'GET'):
     form = ProjectForm(request.POST or None, request.FILES or None)
-    # print (form)
-    
+
     if form.is_valid():
-        form.save()
-        info = Project.objects.latest("pub_date")
+        info = form.save(commit=False)
         a_solar = calcula_factor(Solar_field.filtro(), info)[0]
-        b_solar = calcula_factor(Solar_field.filtro(), info)[1]
+        #b_solar = calcula_factor(Solar_field.filtro(), info)[1]
 
-        return HttpResponseRedirect(reverse('presupuesto:results', args = (a_solar,)))
+        return render(request, "presupuesto/results.html", {"a": a_solar})
+    
+    else:
+        return render(request, 'presupuesto/index.html')
 
-    return render(request, "presupuesto:index", {"a": a_solar, "b": b_solar, "form": form})
-
-
-def results(request, a_solar):
-    return render(request, "polls:results", {
-        "a": a_solar
-    })

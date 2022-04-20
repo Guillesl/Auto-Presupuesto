@@ -17,7 +17,7 @@
     <main>
         <h3>Formulario para introducir valores de la oferta y obtener el presupuesto</h3>
     
-    <form action="{%url "presupuesto:index" %}" method="post">
+    <form action="{% url "presupuesto:results" %}" method="post">
         {% csrf_token %}
         <label for="oferta">Tu oferta a presupuestar: </label>
         <table>
