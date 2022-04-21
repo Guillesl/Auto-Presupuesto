@@ -31,7 +31,7 @@ def results(request):
         b_const = budget_construc[1]
         const_cost = budget_construc[2]
 
-        budget_transport = calcula_factor(Transport.filtro(info.vehicule), [i.transport_cost for i in Transport.filtro(info.vehicule)], "transport",info)
+        budget_transport = calcula_factor(Transport.filtro(info.vehicule), [i.transport_cost/(i.num_colect*i.distance) for i in Transport.filtro(info.vehicule)], "transport",info)
         a_transp = budget_transport[0]
         b_transp = budget_transport[1]
         transp_cost = budget_transport[2]

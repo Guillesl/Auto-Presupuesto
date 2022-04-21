@@ -102,5 +102,5 @@ class Storage(Project):
         super.__init__(name, fluid, vol_storage, integration, pressure, storage_cost, real_offer, pub_date )
 
     def filtro(fluid_choice):
-        projects = Project.objects.filter(fluid = fluid_choice)
+        projects = Project.objects.filter(fluid = fluid_choice).exclude(vol_storage = 0)
         return projects
