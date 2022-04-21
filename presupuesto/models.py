@@ -42,14 +42,14 @@ class Project(models.Model):
     fluid = models.CharField(max_length=15, choices=fluid_choices)
     dist_supply = models.IntegerField()
     surface = models.CharField(max_length=30, choices=surface_choices)
-    transport = models.CharField(max_length=15, choices=transport_choices)
+    vehicule = models.CharField(max_length=15, choices=transport_choices)
     distance = models.BigIntegerField()
     pressure = models.IntegerField()
     cost = models.BigIntegerField()
     solar_field_cost = models.BigIntegerField()
     bop_cost = models.BigIntegerField()
     construction_cost = models.BigIntegerField()
-    mobility_cost = models.BigIntegerField()
+    transport_cost = models.BigIntegerField()
     storage_cost = models.BigIntegerField()
     real_offer = models.BooleanField()
     pub_date = models.DateField("date published")
@@ -77,8 +77,8 @@ class Balance_Of_Plant(Project):
     def __init__(self, name, num_colect, integration, fluid, dist_supply, bop_cost, real_offer, pub_date):
         super.__init__(name, num_colect, integration, fluid, dist_supply, bop_cost, real_offer, pub_date )
 
-    def filtro():
-        projects = Project.objects.filter()
+    def filtro(integration_choice, fluid_choice):
+        projects = Project.objects.filter(integration = integration_choice, fluid = fluid_choice)
         return projects
 
 class Construction(Project):
@@ -89,18 +89,18 @@ class Construction(Project):
         projects = Project.objects.filter(surface = surface_choice)
         return projects   
 
-class Mobility(Project):
-    def __init__(self, name, num_colect, transport, distance, mobility_cost, real_offer, pub_date):
-        super.__init__(name, num_colect, transport, distance, mobility_cost, real_offer, pub_date)
+class Transport(Project):
+    def __init__(self, name, num_colect, vehicule, distance, transport_cost, real_offer, pub_date):
+        super.__init__(name, num_colect, vehicule, distance, transport_cost, real_offer, pub_date)
 
-    def filtro():
-        projects = Project.objects.filter(transport = transport_choices[2], distance = 200)
+    def filtro(vehicule_choice):
+        projects = Project.objects.filter(vehicule = vehicule_choice)
         return projects   
 
 class Storage(Project):
-    def __init__(self, name, vol_storage, integration, pressure, storage_cost, real_offer, pub_date):
-        super.__init__(name, vol_storage, integration, pressure, storage_cost, real_offer, pub_date )
+    def __init__(self, name, fluid, vol_storage, integration, pressure, storage_cost, real_offer, pub_date):
+        super.__init__(name, fluid, vol_storage, integration, pressure, storage_cost, real_offer, pub_date )
 
-    def filtro():
-        projects = Project.objects.filter(integration = integration_choices[6], pressure = 6)
+    def filtro(fluid_choice):
+        projects = Project.objects.filter(fluid = fluid_choice)
         return projects

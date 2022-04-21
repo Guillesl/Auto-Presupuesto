@@ -12,16 +12,34 @@
 <body>
     <main>
         <h2>Campo Solar</h2>
-        <h3>El valor de escalabilidad a es:{{ a_solar  }}</h3>
-        <h3>El valor de escalabilidad b es:{{ b_solar  }}</h3>
-        <h3>El coste del campo solar es:{{ SF_cost  }}</h3><br>
+        <h3>Los valores de escalabilidad a = {{ a_solar  }} y b = {{ b_solar  }}</h3>
+        <h3>El coste del campo solar es: {{ SF_cost  }}</h3><br>
+
+        <h2>Balance Of Plant</h2>
+        <h3>Los valores de escalabilidad a = {{ a_bop  }} y b = {{ b_bop  }}</h3>
+        <h3>El coste de la obra es: {{ bop_cost  }}</h3><br>
 
         <h2>Construcción</h2>
-        <h3>El valor de escalabilidad a es:{{ a_const  }}</h3>
-        <h3>El valor de escalabilidad b es:{{ b_const  }}</h3>
-        <h3>El coste de la obra es:{{ const_cost  }}</h3><br>
+        <h3>Los valores de escalabilidad a = {{ a_const  }} y b = {{ b_const  }}</h3>
+        <h3>El coste de la obra es: {{ const_cost  }}</h3><br>
+
+        <h2>Transporte</h2>
+        <h3>Los valores de escalabilidad a = {{ a_transp  }} y b = {{ b_transp  }}</h3>
+        <h3>El coste de la obra es: {{ transp_cost  }}</h3><br>
+
+        <h2>Almacenamiento</h2>
+        {% if sto_cost == 0 %}
+        <h3>No hay almacenamiento</h3>
+        {% else %}
+        <h3>Los valores de escalabilidad a = {{ a_sto }} y b = {{ b_sto }}</h3>
+        <h3>El coste de la obra es: {{ sto_cost  }}</h3><br>
+        {% endif %}
 
     </main>
+    <footer>
+        Valores de escalabilidad: a*x^b
+        <a href="{% url 'presupuesto:index' %}">¿Te gustaria realizar un nuevo presupuesto?</a>
+    </footer>
     
 </body>
 </html>
