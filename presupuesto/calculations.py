@@ -24,12 +24,13 @@ def calcula_factor(objetos, cost_list, cost_type, info):
             num_colect_ref = min(num_colect_list, key=lambda j:abs(j-num_colect_user))
         else:
             num_colect_ref = min(num_colect_list, key=lambda j:abs(j-num_colect_user))
-        
+
         if cost_field == "storage_cost":
-            project_ref = objetos.filter(vol_storage = num_colect_ref)[0]
+            project_ref = objetos.filter(vol_storage = num_colect_ref)
         else:
-            project_ref = objetos.filter(num_colect = num_colect_ref)[0] #se podría añadir la condición de que sea el proyecto verdadero más reciente
+            project_ref = objetos.filter(num_colect = num_colect_ref)
         
+        project_ref = project_ref.order_by("pub_date")[0]
         x = [i/num_colect_ref for i in num_colect_list]
 
         if (cost_field == "transport_cost"):
